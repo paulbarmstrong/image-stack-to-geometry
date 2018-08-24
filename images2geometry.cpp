@@ -5,6 +5,7 @@
 #include <math.h>
 #include <string.h>
 #include "IntVector3.cpp"
+#include "SetList.cpp"
 
 using namespace std;
 
@@ -17,13 +18,14 @@ using namespace std;
 */
 
 vector<vector<vector<char> > > parse_fits(string);
+void print_images(vector<vector<vector<char> > >);
 inline int positive_mod(int, int);
 int parse_int(string);
 
 int main(int argc, char * argv[]) {
-	
+
 	// Return if the input is invalid
-	if (argc == 1) {
+	if (argc < 2) {
 		cerr << "Error: No file arguments provided.\n";
 		return 1;
 	}
@@ -31,22 +33,13 @@ int main(int argc, char * argv[]) {
 		cerr << "Error: Invalid file format provided.\n";
 		return 1;
 	}
+	string file_name = argv[1];
 	
 	// Get a matrix of the images' bytes
-	vector<vector<vector<char> > > images = parse_fits("input.fits");
+	vector<vector<vector<char> > > images = parse_fits(file_name);
 
-	// For now, just print them out
-	cout << "images:\n";
-	for (int i = 0; i < images.size(); i++) {
-		for (int j = 0; j < images.at(i).size(); j++) {
-			for (int k = 0; k < images.at(i).at(j).size(); k++) {
-				cout << (images.at(i).at(j).at(k) == 0 ? "0" : "1");
-			}
-			cout << "\n";
-		}
-		cout << "\n";
-	}
-	cout << "\n";
+	// Print them out
+	print_images(images);
 
 	return 0;
 }
@@ -104,6 +97,21 @@ vector<vector<vector<char> > > parse_fits(string file_name) {
 	file.close();
 	return images;
 
+}
+
+// Print the contents of the images
+void print_images(vector<vector<vector<char> > > images) {
+	cout << "images:\n";
+	for (int i = 0; i < images.size(); i++) {
+		for (int j = 0; j < images.at(i).size(); j++) {
+			for (int k = 0; k < images.at(i).at(j).size(); k++) {
+				cout << (images.at(i).at(j).at(k) == 0 ? "0" : "1");
+			}
+			cout << "\n";
+		}
+		cout << "\n";
+	}
+	cout << "\n";
 }
 
 // Get the (a mod b) between 0 and b-1
