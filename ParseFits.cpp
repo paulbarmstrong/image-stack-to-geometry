@@ -14,7 +14,7 @@ int main() {
 	ifstream file;
 	file.open("input.fits");
 	vector<string> header_phrases;
-	vector<int> data_bytes;
+	vector<vector<vector<int> > > data_bytes;
 	int dimensions[3] = {1, 1, 1};
 	int byte_count = 0;
 	
@@ -45,9 +45,17 @@ int main() {
 	}
 
 	// Add each byte of data to the data_bytes vector
-	while (file.peek() != EOF) {
-		data_bytes.push_back(file.get());
-		byte_count++;
+	for (int i = 0; i < dimensions[0]; i++) {
+		vector<vector<int> > temp_vector_i;
+		for (int j = 0; j < dimensions[1]; j++) {
+			vector<int> temp_vector_j;
+			for (int k = 0; k < dimensions[2]; k++) {
+				temp_vector_j.push_back(file.get());
+				byte_count++;
+			}
+			temp_vector_i.push_back(temp_vector_j);
+		}
+		data_bytes.push_back(temp_vector_i);
 	}
 	
 	// Print out the collected data
@@ -57,7 +65,13 @@ int main() {
 	}
 	cout << "data bytes:\n";
 	for (int i = 0; i < data_bytes.size(); i++) {
-		cout << data_bytes.at(i) << ", ";
+		for (int j = 0; j < data_bytes.at(i).size(); j++) {
+			for (int k = 0; k < data_bytes.at(i).at(j).size(); k++) {
+				cout << data_bytes.at(i).at(j).at(k) << ", ";
+			}
+			cout << "\n";
+		}
+		cout << "\n";
 	}
 	cout << "\n";
 
