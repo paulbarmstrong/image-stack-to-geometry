@@ -4,8 +4,7 @@
 #include <string>
 #include <math.h>
 #include <string.h>
-#include "IntVector3.cpp"
-#include "SetList.cpp"
+#include "Geometry.cpp"
 
 using namespace std;
 
@@ -23,23 +22,35 @@ inline int positive_mod(int, int);
 int parse_int(string);
 
 int main(int argc, char * argv[]) {
-
+	
 	// Return if the input is invalid
 	if (argc < 2) {
 		cerr << "Error: No file arguments provided.\n";
 		return 1;
 	}
-	if (strcmp(strrchr(argv[1], '.'), ".fits") != 0) {
+	string file_name = argv[1];
+	if (file_name.substr(file_name.find('.')).compare(".fits") != 0) {
 		cerr << "Error: Invalid file format provided.\n";
 		return 1;
 	}
-	string file_name = argv[1];
 	
 	// Get a matrix of the images' bytes
 	vector<vector<vector<char> > > images = parse_fits(file_name);
 
-	// Print them out
-	print_images(images);
+	// Create a new Geometry and add any pixel which isn't 0 as a voxel
+	Geometry geometry;
+	for (int i = 0; i < images.size(); i++) {
+		for (int j = 0; j < images.at(i).size(); j++) {
+			for (int k = 0; k < images.at(i).at(j).size(); k++) {
+				if (images.at(i).at(j).at(k) != 0) {
+					geometry.add_voxel(IntVector3(i, j, k));
+				}
+			}
+		}
+	}
+	
+	// Save the geometry to a file
+	geometry.save_to_file("output.obj");
 
 	return 0;
 }

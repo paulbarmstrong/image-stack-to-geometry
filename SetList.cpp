@@ -1,5 +1,3 @@
-#include <sstream>
-#include <string>
 #include <vector>
 #include <map>
 
@@ -15,10 +13,12 @@ using namespace std;
 
 template<typename T>
 class SetList {
-	public:
+	private:
 		map<T, int> index_map;
 		vector<T> list;
-		
+
+	public:
+
 		// Adds data to the list if not already in the list.
 		// Returns the index of the data in the list.
 		int add(T data) {
@@ -41,7 +41,7 @@ class SetList {
 		}
 		
 		// Gets the data at the given index.
-		T at(int index) {
+		T& at(int index) {
 			return list.at(index);
 		}
 

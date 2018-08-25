@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+
 using namespace std;
 
 /*
@@ -13,24 +14,54 @@ using namespace std;
 class IntVector3 {
 	public:
 		int x, y, z;
-		void set(int newX, int newY, int newZ) {
+
+		// Empty constructor leaves x,y,z as garbage values
+		IntVector3() {}
+
+		// Constructor with 3 ints
+		IntVector3(int newX, int newY, int newZ) {
 			x = newX;
 			y = newY;
 			z = newZ;
 		}
+
+		// Copy constructor
+		IntVector3(const IntVector3& other) {
+			x = other.x;
+			y = other.y;
+			z = other.z;
+		}
+
+		// Set from another IntVector3
+		IntVector3& set(IntVector3& other) {
+			x = other.x;
+			y = other.y;
+			z = other.z;
+			return *this;
+		}
+		
+		// Set from 3 ints
+		IntVector3& set(int newX, int newY, int newZ) {
+			x = newX;
+			y = newY;
+			z = newZ;
+			return *this;
+		}
 	
 		// Add another IntVector3 to this one
-		void add(IntVector3& other) {
+		IntVector3& add(IntVector3& other) {
 			x += other.x;
 			y += other.y;
 			z += other.z;
+			return *this;
 		}
 
 		// Subtract another IntVector3 from this one
-		void sub(IntVector3& other) {
+		IntVector3& sub(IntVector3& other) {
 			x -= other.x;
 			y -= other.y;
 			z -= other.z;
+			return *this;
 		}
 
 		// Get a std::vector version of this IntVector3
@@ -66,6 +97,20 @@ class IntVector3 {
 			stringstream ss;
 			ss << x << " " << y << " " << z;
 			return ss.str();
+		}
+
+		// Sort the x,y,z of the IntVector3
+		IntVector3& sort() {
+			if (x > y) {
+				x+=y;y=x-y;x-=y;
+			}
+			if (y > z) {
+				y+=z;z=y-z;y-=z;
+			}
+			if (x > y) {
+				x+=y;y=x-y;x-=y;
+			}
+			return *this;
 		}
 };
 
