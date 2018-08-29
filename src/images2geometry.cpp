@@ -4,7 +4,10 @@
 #include <string>
 #include <math.h>
 #include <string.h>
-#include "Geometry.cpp"
+
+#include "Geometry.h"
+#include "IntVector3.h"
+#include "SetList.h"
 
 using namespace std;
 
