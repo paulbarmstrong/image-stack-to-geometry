@@ -27,24 +27,29 @@ int parse_int(string);
 int main(int argc, char * argv[]) {
 	
 	// Return if the input is invalid
-	if (argc < 2) {
-		cerr << "Error: No file arguments provided.\n";
+	if (argc < 3) {
+		cerr << "Error: Insufficient file arguments provided.\n";
 		return 1;
 	}
-	string file_name = argv[1];
-	if (file_name.substr(file_name.find('.')).compare(".fits") != 0) {
-		cerr << "Error: Invalid file format provided.\n";
+	string input_file_name = argv[1];
+	if (input_file_name.substr(input_file_name.find('.')).compare(".fits") != 0) {
+		cerr << "Error: Invalid input file format provided.\n";
+		return 1;
+	}
+	string output_file_name = argv[2];
+	if (output_file_name.substr(output_file_name.find('.')).compare(".obj") != 0) {
+		cerr << "Error: Invalid output file format provided.\n";
 		return 1;
 	}
 	
 	// Get a matrix of the images' bytes
-	vector<vector<vector<char> > > images = parse_fits(file_name);
+	vector<vector<vector<char> > > images = parse_fits(input_file_name);
 
 	// Create a new Geometry and add any pixel which isn't 0 as a voxel
 	Geometry geometry;
-	for (int i = 0; i < images.size(); i++) {
-		for (int j = 0; j < images.at(i).size(); j++) {
-			for (int k = 0; k < images.at(i).at(j).size(); k++) {
+	for (size_t i = 0; i < images.size(); i++) {
+		for (size_t j = 0; j < images.at(i).size(); j++) {
+			for (size_t k = 0; k < images.at(i).at(j).size(); k++) {
 				if (images.at(i).at(j).at(k) != 0) {
 					geometry.add_voxel(IntVector3(i, j, k));
 				}
@@ -53,7 +58,7 @@ int main(int argc, char * argv[]) {
 	}
 	
 	// Save the geometry to a file
-	geometry.save_to_file("output.obj");
+	geometry.save_to_file(output_file_name);
 
 	return 0;
 }
@@ -116,9 +121,9 @@ vector<vector<vector<char> > > parse_fits(string file_name) {
 // Print the contents of the images
 void print_images(vector<vector<vector<char> > > images) {
 	cout << "images:\n";
-	for (int i = 0; i < images.size(); i++) {
-		for (int j = 0; j < images.at(i).size(); j++) {
-			for (int k = 0; k < images.at(i).at(j).size(); k++) {
+	for (size_t i = 0; i < images.size(); i++) {
+		for (size_t j = 0; j < images.at(i).size(); j++) {
+			for (size_t k = 0; k < images.at(i).at(j).size(); k++) {
 				cout << (images.at(i).at(j).at(k) == 0 ? "0" : "1");
 			}
 			cout << "\n";

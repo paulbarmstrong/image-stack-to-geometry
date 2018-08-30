@@ -10,7 +10,7 @@
 
 With this project I am creating a command line tool for transforming image stacks (in formats like .tif and .fits) into three-dimensional geometries (in formats like .obj, .dae, .gltf).
 
-I started this project with Java, but I have decided to shift gears and use C++. This will allow me to delve into lower-level operations with C if I choose to.
+I have decided to use c++11 for this project. This will allow me to utilize object oriented techniques, but also delve into lower-level operations with C if I choose to.
 
 Currently the images2geometry command can read a .fits file to retrieve the image stack data in the form of a three-dimensional matrix of bytes. It will create a geometry and fill it based on the image stack data. Finally, it will save the geometry as a .obj file.
 
