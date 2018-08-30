@@ -16,7 +16,7 @@ using namespace std;
 	Date: August 2018
 	
 	Description:
-		Main file for the image-stack-to-geometry project
+		Main file for the image-stack-to-mesh project
 */
 
 vector<vector<vector<char> > > parse_fits(string);
@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
 	if (argc < 3) {
 		cerr << "Error: Insufficient file arguments provided.\n";
 		return 1;
-	}
+	}	
 	string input_file_name = argv[1];
 	if (input_file_name.substr(input_file_name.find('.')).compare(".fits") != 0) {
 		cerr << "Error: Invalid input file format provided.\n";

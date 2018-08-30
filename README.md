@@ -12,7 +12,11 @@ With this project I am creating a command line tool for transforming image stack
 
 I have decided to use c++11 for this project. This will allow me to utilize object oriented techniques, but also delve into lower-level operations with C if I choose to.
 
-Currently the images2geometry command can read a .fits file to retrieve the image stack data in the form of a three-dimensional matrix of bytes. It will create a geometry and fill it based on the image stack data. Finally, it will save the geometry as a .obj file.
+Currently the images2geo command can read a .fits file to retrieve the image stack data in the form of a three-dimensional matrix of bytes. It will create a geometry and fill it based on the image stack data. Finally, it will save the geometry as a .obj file.
+
+Doing `make` in a linux shell will build the project. After that, the executable will be images2geo.
+
+Doing `.\images2geo input.fits output.obj` will create a file output.obj which defines a geometry based on the input.fits image stack.
 
 ## Plans
 
@@ -22,7 +26,7 @@ Currently the images2geometry command can read a .fits file to retrieve the imag
 
 ## Motivations
 
-This project is inspired by (but separate from) the work I did at NIST. We visualized microscope images in the form of FITS image stacks. We used ImageJ to create a geometry from the image stacks.
+This project is inspired by the [Wavefront .Obj plugin for ImageJ](https://imagej.net/Wavefront_.OBJ_...) which I used at NIST to create geometries from image stacks.
 
 I am now using what I learned about computer graphics to create my own algorithm for forming geometries.
 
