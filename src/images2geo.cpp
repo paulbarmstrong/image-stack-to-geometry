@@ -16,13 +16,12 @@ using namespace std;
 	Date: August 2018
 	
 	Description:
-		Main file for the image-stack-to-mesh project
+		Main file for the image-stack-to-geometry project
 */
 
 vector<vector<vector<char> > > parse_fits(string);
 void print_images(vector<vector<vector<char> > >);
 inline int positive_mod(int, int);
-int parse_int(string);
 
 int main(int argc, char * argv[]) {
 	
@@ -86,7 +85,7 @@ vector<vector<vector<char> > > parse_fits(string file_name) {
 		
 		for (int i = 0; i < 3; i++) {
 			if (temp_text.substr(0, 5) == "NAXIS" && temp_text.at(5) - 48 == i + 1) {
-				dimensions[i] = parse_int(temp_text.substr(temp_text.find('=') + 1));
+				dimensions[i] = stoi(temp_text.substr(temp_text.find('=') + 1));
 			}
 		}
 	}
@@ -136,12 +135,5 @@ void print_images(vector<vector<vector<char> > > images) {
 // Get the (a mod b) between 0 and b-1
 inline int positive_mod(int a, int b) {
 	return ((a % b + b) % b);
-}
-
-// Parse an int to a string
-int parse_int(string str) {
-	int num;
-	sscanf(str.c_str(), "%d", &num);
-	return num;
 }
 

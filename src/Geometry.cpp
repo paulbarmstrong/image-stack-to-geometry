@@ -13,7 +13,7 @@ using namespace std;
 void Geometry::add_voxel(IntVector3 coordinates) {
 
 	// Make sure all 8 of the new voxel's vertices are in the vertices SetList.
-	// Keep an array of the indices of them to use when creating faces.
+	// Fill vert_indices with indices of them to use when creating faces.
 	for (int i = 0; i < 8; i++) {
 		IntVector3 vertex(LOCAL_VERT_POSITIONS[i]);
 		vert_indices[i] = vertices.add(vertex.add(coordinates));
