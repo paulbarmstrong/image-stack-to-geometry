@@ -42,7 +42,14 @@ class Geometry {
 		}};
 
 	public:
-		void add_voxel(IntVector3 coordinates);
+
+		// Empty constructor creates an empty Geometry
+		Geometry();
+
+		// Add a voxel to the geometry
+		void add_voxel(IntVector3 &coordinates);
+
+		// Save the geometry to a file
 		void save_to_file(string file_name);
 };
 

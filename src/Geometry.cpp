@@ -10,7 +10,11 @@
 
 using namespace std;
 
-void Geometry::add_voxel(IntVector3 coordinates) {
+// Empty constructor creates an empty Geometry
+Geometry::Geometry() {}
+
+// Add a voxel to the geometry
+void Geometry::add_voxel(IntVector3 &coordinates) {
 
 	// Make sure all 8 of the new voxel's vertices are in the vertices SetList.
 	// Fill vert_indices with indices of them to use when creating faces.
@@ -43,6 +47,8 @@ void Geometry::add_voxel(IntVector3 coordinates) {
 		}
 	}
 }
+
+// Save the geometry to a file
 void Geometry::save_to_file(string file_name) {
 	ofstream file;
 	file.open(file_name);

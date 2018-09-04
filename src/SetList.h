@@ -31,10 +31,10 @@ class SetList {
 		T& at(int index);
 
 		// Check whether or not the given data is in the SetList.
-		bool contains(T data);
+		bool contains(T &data);
 
 		// Checks the index of the data in the list.
-		int index_of(T data);
+		int index_of(T &data);
 
 		// Returns the size of the SetList
 		int size();

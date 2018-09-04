@@ -50,7 +50,8 @@ int main(int argc, char * argv[]) {
 		for (size_t j = 0; j < images.at(i).size(); j++) {
 			for (size_t k = 0; k < images.at(i).at(j).size(); k++) {
 				if (images.at(i).at(j).at(k) != 0) {
-					geometry.add_voxel(IntVector3(i, j, k));
+					IntVector3 voxel_coords(i, j, k);
+					geometry.add_voxel(voxel_coords);
 				}
 			}
 		}
@@ -118,7 +119,7 @@ vector<vector<vector<char> > > parse_fits(string file_name) {
 }
 
 // Print the contents of the images
-void print_images(vector<vector<vector<char> > > images) {
+void print_images(vector<vector<vector<char> > > &images) {
 	cout << "images:\n";
 	for (size_t i = 0; i < images.size(); i++) {
 		for (size_t j = 0; j < images.at(i).size(); j++) {

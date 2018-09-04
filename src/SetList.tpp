@@ -39,13 +39,13 @@ T& SetList<T>::at(int index) {
 
 // Check whether or not the given data is in the SetList.
 template<typename T>
-bool SetList<T>::contains(T data) {
+bool SetList<T>::contains(T &data) {
 	return index_map.count(data);
 }
 
 // Checks the index of the data in the list.
 template<typename T>
-int SetList<T>::index_of(T data) {
+int SetList<T>::index_of(T &data) {
 	return index_map.at(data);
 }
 
