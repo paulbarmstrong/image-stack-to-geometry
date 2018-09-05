@@ -2,9 +2,11 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <array>
 #include <math.h>
 #include <string.h>
 
+#include "ImageStack.h"
 #include "Geometry.h"
 #include "IntVector3.h"
 #include "SetList.h"
@@ -19,7 +21,6 @@ using namespace std;
 		Main file for the image-stack-to-geometry project
 */
 
-vector<vector<vector<char> > > parse_fits(string);
 void print_images(vector<vector<vector<char> > >);
 inline int positive_mod(int, int);
 
@@ -42,14 +43,14 @@ int main(int argc, char * argv[]) {
 	}
 	
 	// Get a matrix of the images' bytes
-	vector<vector<vector<char> > > images = parse_fits(input_file_name);
+	ImageStack image_stack(input_file_name);
 
 	// Create a new Geometry and add any pixel which isn't 0 as a voxel
 	Geometry geometry;
-	for (size_t i = 0; i < images.size(); i++) {
-		for (size_t j = 0; j < images.at(i).size(); j++) {
-			for (size_t k = 0; k < images.at(i).at(j).size(); k++) {
-				if (images.at(i).at(j).at(k) != 0) {
+	for (size_t i = 0; i < image_stack.images.size(); i++) {
+		for (size_t j = 0; j < image_stack.images.at(i).size(); j++) {
+			for (size_t k = 0; k < image_stack.images.at(i).at(j).size(); k++) {
+				if (image_stack.images.at(i).at(j).at(k) != 0) {
 					IntVector3 voxel_coords(i, j, k);
 					geometry.add_voxel(voxel_coords);
 				}
@@ -61,61 +62,6 @@ int main(int argc, char * argv[]) {
 	geometry.save_to_file(output_file_name);
 
 	return 0;
-}
-
-// Fetch the 3D image stack data from the first HDU of the given fits file location
-vector<vector<vector<char> > > parse_fits(string file_name) {
-
-	// Open the fits file and prepare to capture header info and image data
-	ifstream file;
-	file.open(file_name);
-	vector<vector<vector<char> > > images;
-	int dimensions[3] = {1, 1, 1};
-	int byte_count = 0;
-	
-	// Read 80 characters at a time to get each phrase of header text
-	string temp_text;
-	while (file.peek() != EOF && temp_text.substr(0, 3) != "END") {
-
-		// Read the 80 character phrase
-		temp_text = "";
-		for (int i = 0; i < 80 && file.peek() != EOF; i++) {
-			temp_text.push_back(file.get());
-			byte_count++;
-		}
-		
-		for (int i = 0; i < 3; i++) {
-			if (temp_text.substr(0, 5) == "NAXIS" && temp_text.at(5) - 48 == i + 1) {
-				dimensions[i] = stoi(temp_text.substr(temp_text.find('=') + 1));
-			}
-		}
-	}
-
-	// Skip to the end of the current 2880 byte block (end of metadata)
-	int dist_from = positive_mod(-byte_count, 2880);
-	for (int i = 0; i < dist_from; i++) {
-		file.get();
-		byte_count++;
-	}
-
-	// Add each byte of data to the images vector
-	for (int i = 0; i < dimensions[0]; i++) {
-		vector<vector<char> > temp_image;
-		for (int j = 0; j < dimensions[1]; j++) {
-			vector<char> temp_row;
-			for (int k = 0; k < dimensions[2]; k++) {
-				temp_row.push_back(file.get());
-				byte_count++;
-			}
-			temp_image.push_back(temp_row);
-		}
-		images.push_back(temp_image);
-	}
-
-	// Close the file and return the data
-	file.close();
-	return images;
-
 }
 
 // Print the contents of the images

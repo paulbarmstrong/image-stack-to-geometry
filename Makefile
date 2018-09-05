@@ -4,13 +4,16 @@ CPPFLAGS = -std=c++11 -Wall
 all: images2geo
 
 # Creating the executable
-images2geo: src/images2geo.o src/Geometry.o src/IntVector3.o
-	g++ -o images2geo src/images2geo.o src/Geometry.o src/IntVector3.o
+images2geo: src/images2geo.o src/ImageStack.o src/Geometry.o src/IntVector3.o
+	g++ -o images2geo src/images2geo.o src/ImageStack.o src/Geometry.o src/IntVector3.o
 
 
 # Creating object files
-images2geo.o: src/images2geo.cpp src/Geometry.h src/SetList.h src/IntVector3.h
+images2geo.o: src/images2geo.cpp src/Geometry.h src/ImageStack.h src/SetList.h src/IntVector3.h
 	g++ $(CPPFLAGS) -c src/images2geo.cpp
+
+ImageStack.o: src/ImageStack.cpp src/ImageStack.h src/IntVector3.h
+	g++ $(CPPFLAGS) -c src/ImageStack.cpp
 
 Geometry.o: src/Geometry.cpp src/Geometry.h src/SetList.h src/IntVector3.h
 	g++ $(CPPFLAGS) -c src/Geometry.cpp
