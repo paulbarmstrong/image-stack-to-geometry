@@ -45,18 +45,9 @@ int main(int argc, char * argv[]) {
 	// Get a matrix of the images' bytes
 	ImageStack image_stack(input_file_name);
 
-	// Create a new Geometry and add any pixel which isn't 0 as a voxel
+	// Create a new Geometry from the image stack
 	Geometry geometry;
-	for (size_t i = 0; i < image_stack.images.size(); i++) {
-		for (size_t j = 0; j < image_stack.images.at(i).size(); j++) {
-			for (size_t k = 0; k < image_stack.images.at(i).at(j).size(); k++) {
-				if (image_stack.images.at(i).at(j).at(k) != 0) {
-					IntVector3 voxel_coords(i, j, k);
-					geometry.add_voxel(voxel_coords);
-				}
-			}
-		}
-	}
+	geometry.add_image_stack(image_stack);
 	
 	// Save the geometry to a file
 	geometry.save_to_file(output_file_name);
