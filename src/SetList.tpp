@@ -3,6 +3,8 @@
 	Date: August 2018
 	
 	Description:
+		Implementation file for the SetList class.
+
 		SetList is a list-like structure which can have no duplicate entries.
 */
 

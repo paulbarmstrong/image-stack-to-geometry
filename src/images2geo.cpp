@@ -21,9 +21,6 @@ using namespace std;
 		Main file for the image-stack-to-geometry project
 */
 
-void print_images(vector<vector<vector<char> > >);
-inline int positive_mod(int, int);
-
 int main(int argc, char * argv[]) {
 	
 	// Return if the input is invalid
@@ -47,7 +44,20 @@ int main(int argc, char * argv[]) {
 
 	// Create a new Geometry from the image stack
 	Geometry geometry;
-	geometry.add_image_stack(image_stack);
+
+	// Go through each pixel in the image stack
+	for (size_t i = 0; i < image_stack.get_depth(); i++) {
+		for (size_t j = 0; j < image_stack.get_width(); j++) {
+			for (size_t k = 0; k < image_stack.get_height(); k++) {
+
+				// If the pixel is turned on, add it to the geometry as a voxel
+				if (image_stack.get_pixel(i, j, k) != 0) {
+					IntVector3 voxel_coords(i, j, k);
+					geometry.add_voxel(voxel_coords);
+				}
+			}
+		}
+	}
 	
 	// Save the geometry to a file
 	geometry.save_to_file(output_file_name);
@@ -55,23 +65,4 @@ int main(int argc, char * argv[]) {
 	return 0;
 }
 
-// Print the contents of the images
-void print_images(vector<vector<vector<char> > > &images) {
-	cout << "images:\n";
-	for (size_t i = 0; i < images.size(); i++) {
-		for (size_t j = 0; j < images.at(i).size(); j++) {
-			for (size_t k = 0; k < images.at(i).at(j).size(); k++) {
-				cout << (images.at(i).at(j).at(k) == 0 ? "0" : "1");
-			}
-			cout << "\n";
-		}
-		cout << "\n";
-	}
-	cout << "\n";
-}
-
-// Get the (a mod b) between 0 and b-1
-inline int positive_mod(int a, int b) {
-	return ((a % b + b) % b);
-}
 

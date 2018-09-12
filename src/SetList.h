@@ -3,7 +3,9 @@
 	Date: August 2018
 	
 	Description:
-		Header file for the SetList class
+		Header file for the SetList class.
+
+		SetList is a list-like structure which can have no duplicate entries.
 */
 
 #ifndef SETLIST_H

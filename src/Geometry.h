@@ -3,7 +3,9 @@
 	Date: August 2018
 	
 	Description:
-		A header file for the Geometry class.
+		Header file for the Geometry class.
+
+		Geometry is a class which represents a 3D geometry (includes vertices and faces)
 */
 
 #ifndef GEOMETRY_H
@@ -17,7 +19,6 @@
 
 #include "SetList.h"
 #include "IntVector3.h"
-#include "ImageStack.h"
 
 using namespace std;
 
@@ -46,9 +47,6 @@ class Geometry {
 
 		// Empty constructor creates an empty Geometry
 		Geometry();
-
-		// Add an ImageStack to the geometry
-		void add_image_stack(ImageStack &image_stack);
 
 		// Add a voxel to the geometry
 		void add_voxel(IntVector3 &coordinates);

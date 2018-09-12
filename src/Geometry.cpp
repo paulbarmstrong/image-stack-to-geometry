@@ -3,6 +3,8 @@
 	Date: August 2018
 	
 	Description:
+		Implementation file for the Geometry class.
+
 		Geometry is a class which represents a 3D geometry (includes vertices and faces)
 */
 
@@ -12,20 +14,6 @@ using namespace std;
 
 // Empty constructor creates an empty Geometry
 Geometry::Geometry() {}
-
-// Add an ImageStack to the geometry
-void Geometry::add_image_stack(ImageStack &image_stack) {
-	for (size_t i = 0; i < image_stack.images.size(); i++) {
-		for (size_t j = 0; j < image_stack.images.at(i).size(); j++) {
-			for (size_t k = 0; k < image_stack.images.at(i).at(j).size(); k++) {
-				if (image_stack.images.at(i).at(j).at(k) != 0) {
-					IntVector3 voxel_coords(i, j, k);
-					add_voxel(voxel_coords);
-				}
-			}
-		}
-	}
-}
 
 // Add a voxel to the geometry
 void Geometry::add_voxel(IntVector3 &coordinates) {

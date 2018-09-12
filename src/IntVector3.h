@@ -4,6 +4,8 @@
 	
 	Description:
 		Header file for the IntVector3 class
+
+		IntVector3 is a class which represents a three-dimensional vector of ints
 */
 
 #ifndef INTVECTOR3_H

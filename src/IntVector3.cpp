@@ -3,6 +3,8 @@
 	Date: August 2018
 	
 	Description:
+		Implementation file for the IntVector3 class.
+		
 		IntVector3 is a class which represents a three-dimensional vector of ints
 */
 
