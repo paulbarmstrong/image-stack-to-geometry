@@ -21,8 +21,8 @@ void Geometry::add_voxel(IntVector3 &coordinates) {
 	// Make sure all 8 of the new voxel's vertices are in the vertices SetList.
 	// Fill vert_indices with indices of them to use when creating faces.
 	for (int i = 0; i < 8; i++) {
-		IntVector3 vertex(LOCAL_VERT_POSITIONS[i]);
-		vert_indices[i] = vertices.add(vertex.add(coordinates));
+		IntVector3 vertex(LOCAL_VERT_POSITIONS.at(i));
+		vert_indices.at(i) = vertices.add(vertex.add(coordinates));
 	}
 
 	// Go through the 12 faces (2 on each side of the voxel)
@@ -30,9 +30,9 @@ void Geometry::add_voxel(IntVector3 &coordinates) {
 
 		// Create the new face
 		IntVector3 new_face(
-			vert_indices[FACE_PLANS[i][0]],
-			vert_indices[FACE_PLANS[i][1]],
-			vert_indices[FACE_PLANS[i][2]]
+			vert_indices.at(FACE_PLANS.at(i*3)),
+			vert_indices.at(FACE_PLANS.at(i*3 + 1)),
+			vert_indices.at(FACE_PLANS.at(i*3 + 2))
 		);
 
 		// Create an alphabetical version of the face

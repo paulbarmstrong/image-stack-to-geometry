@@ -34,7 +34,7 @@ ImageStack::ImageStack(string file_name) {
 		
 		for (int i = 0; i < 3; i++) {
 			if (temp_text.substr(0, 5) == "NAXIS" && temp_text.at(5) - 48 == i + 1) {
-				dimensions[i] = stoi(temp_text.substr(temp_text.find('=') + 1));
+				dimensions.at(i) = stoi(temp_text.substr(temp_text.find('=') + 1));
 			}
 		}
 	}
@@ -47,17 +47,11 @@ ImageStack::ImageStack(string file_name) {
 	}
 
 	// Add each byte of data to the images vector
-	for (int i = 0; i < dimensions[0]; i++) {
-		vector<vector<char> > temp_image;
-		for (int j = 0; j < dimensions[1]; j++) {
-			vector<char> temp_row;
-			for (int k = 0; k < dimensions[2]; k++) {
-				temp_row.push_back(file.get());
-				byte_count++;
-			}
-			temp_image.push_back(temp_row);
-		}
-		images.push_back(temp_image);
+	int num_pixels = dimensions.at(0)*dimensions.at(1)*dimensions.at(2);
+	image_bytes.reserve(num_pixels);
+	for (int i = 0; i < num_pixels; i++) {
+		image_bytes.push_back(file.get());
+		byte_count++;
 	}
 
 	// Close the ifstream
@@ -66,22 +60,22 @@ ImageStack::ImageStack(string file_name) {
 
 // Getter for the number of images in the ImageStack
 size_t ImageStack::get_depth() const {
-	return dimensions[0];
+	return dimensions.at(0);
 }
 
 // Getter for the width of images in the ImageStack
 size_t ImageStack::get_width() const {
-	return dimensions[1];
+	return dimensions.at(1);
 }
 
 // Getter for the height of images in the ImageStack
 size_t ImageStack::get_height() const {
-	return dimensions[2];
+	return dimensions.at(2);
 }
 
 // Getter for the state of the pixel at the depth, width, and height provided
 const char& ImageStack::get_pixel(size_t depth, size_t width, size_t height) const {
-	return images.at(depth).at(width).at(height);
+	return image_bytes.at(dimensions.at(2)*(dimensions.at(1)*depth + width) + height);
 }
 
 

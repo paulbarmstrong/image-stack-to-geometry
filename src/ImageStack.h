@@ -17,6 +17,7 @@
 #include <array>
 #include <map>
 #include <fstream>
+#include <iostream>
 
 #include "IntVector3.h"
 
@@ -26,7 +27,7 @@ class ImageStack {
 	public:
 
 		// 3D matrix holds image bytes
-		vector<vector<vector<char> > > images;
+		vector<char> image_bytes;
 		array<int, 3> dimensions = {0, 0, 0};
 
 		// This constructor initializes an ImageStack from an image stack file
