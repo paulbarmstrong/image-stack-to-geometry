@@ -28,7 +28,7 @@ class ImageStack {
 
 		// 3D matrix holds image bytes
 		vector<char> image_bytes;
-		array<int, 3> dimensions = {0, 0, 0};
+		array<int, 3> dimensions = {{0, 0, 0}};
 
 		// This constructor initializes an ImageStack from an image stack file
 		ImageStack(string file_name);
