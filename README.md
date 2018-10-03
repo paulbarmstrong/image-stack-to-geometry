@@ -3,12 +3,12 @@
 ## Details
 
 * Author: Paul Armstrong
-* Date: August 2018
+* Date: October 2018
 * Progress: 15%
 
 ## Description
 
-With this project I am creating a command line tool for transforming image stacks (in formats like .tif and .fits) into three-dimensional geometries (in formats like .obj, .dae, .gltf).
+With this project I am creating a command line tool for transforming image stacks (in formats like .tif and .fits image stacks) into three-dimensional geometries (in formats like .obj (Wavefront), .dae (Collada), .gltf).
 
 I have decided to use C++11 for this project. This will allow me to utilize object oriented techniques, but also delve into lower-level operations with C if I choose to.
 
