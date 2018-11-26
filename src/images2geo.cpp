@@ -29,12 +29,14 @@ int main(int argc, char * argv[]) {
 		return 1;
 	}	
 	string input_file_name = argv[1];
-	if (input_file_name.substr(input_file_name.find('.')).compare(".fits") != 0) {
+	string input_file_ext = input_file_name.substr(input_file_name.find('.'));
+	if (input_file_ext.compare(".fits") != 0) {
 		cerr << "Error: Invalid input file format provided.\n";
 		return 1;
 	}
 	string output_file_name = argv[2];
-	if (output_file_name.substr(output_file_name.find('.')).compare(".obj") != 0) {
+	string output_file_ext = output_file_name.substr(output_file_name.find('.'));
+	if (output_file_ext.compare(".obj") != 0) {
 		cerr << "Error: Invalid output file format provided.\n";
 		return 1;
 	}
