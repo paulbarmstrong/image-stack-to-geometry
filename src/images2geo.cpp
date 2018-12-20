@@ -15,7 +15,7 @@ using namespace std;
 
 /*
 	Author: Paul Armstrong
-	Date: August 2018
+	Date: December 2018
 	
 	Description:
 		Main file for the image-stack-to-geometry project
@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
 	}	
 	string input_file_name = argv[1];
 	string input_file_ext = input_file_name.substr(input_file_name.find('.'));
-	if (input_file_ext.compare(".fits") != 0) {
+	if (input_file_ext.compare(".fits") != 0 && input_file_ext.compare(".tif") != 0) {
 		cerr << "Error: Invalid input file format provided.\n";
 		return 1;
 	}
@@ -54,7 +54,7 @@ int main(int argc, char * argv[]) {
 
 				// If the pixel is turned on, add it to the geometry as a voxel
 				if (image_stack.get_pixel(i, j, k) != 0) {
-					IntVector3 voxel_coords(i, j, k);
+					IntVector3 voxel_coords(i, -j, k);
 					geometry.add_voxel(voxel_coords);
 				}
 			}

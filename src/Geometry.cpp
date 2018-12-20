@@ -1,6 +1,6 @@
 /*
 	Author: Paul Armstrong
-	Date: August 2018
+	Date: December 2018
 	
 	Description:
 		Implementation file for the Geometry class.
