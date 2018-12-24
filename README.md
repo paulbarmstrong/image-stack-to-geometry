@@ -8,7 +8,7 @@
 
 ## Demonstration
 
-![animated gif](https://i.imgur.com/efcZnq6.gif)
+![animated gif](https://i.imgur.com/SYUN5Gs.gif)
 
 ## Description
 
