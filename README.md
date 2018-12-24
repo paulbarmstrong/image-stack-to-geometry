@@ -6,6 +6,10 @@
 * Date: December 2018
 * Progress: 35%
 
+## Demonstration
+
+![animated gif](https://i.imgur.com/efcZnq6.gif)
+
 ## Description
 
 With this project I have created a command line tool for transforming image stacks (in the form of .tif and .fits image stacks) into three-dimensional geometries.
